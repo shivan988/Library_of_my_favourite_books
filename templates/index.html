@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+    {{ bootstrap.load_css() }}
+    <style>
+        body {
+            background-color: #fffdd0; /* Cream color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">My Library</h1>
+
+        {% if books %}
+        <ul class="list-group">
+            {% for book in books %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ book.title | upper }}</strong> by {{ book.author | upper }} — Rating: {{ book.rating | upper }}/10
+                    </div>
+                    <div>
+                        <a href="{{ url_for('edit', book_id=book.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ url_for('delete', book_id=book.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p class="text-center">The list is empty</p>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('add') }}" class="btn btn-primary">Add New Book</a>
+        </div>
+    </div>
+
+    {{ bootstrap.load_js() }}
+</body>
+</html>
